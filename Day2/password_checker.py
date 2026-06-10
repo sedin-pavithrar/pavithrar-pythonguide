@@ -10,7 +10,7 @@
 
 print("------Password Strength Checker------")
 
-password = input("Enter your Password: ")
+password = input(" Enter your Password: ")
 
 length = len(password) >= 8
 upper_case = False
@@ -66,12 +66,12 @@ strength = ("Weak" if score <= 2
             else "Strong"
 )
 
-print(f"\nYour password  is : {strength} ({score}/5)")
+print(f"\n Your password  is : {strength} ({score}/5)")
     
 if strength == "Strong":
-    print("Your password is secure!")
+    print(" Your password is secure!")
 else:
-    print("Tips to improve:")
+    print(" Tips to improve:")
     tips = {
     "Use at least 8 characters": length,
     "Add an uppercase letter": upper_case,
