@@ -38,12 +38,12 @@ while attempts > 0:
                     balance = balance-withdraw_amnt
                     print(f"Withdrawn amount {withdraw_amnt:.2f}. \n Available Balance : {balance:.2f}")
             elif choice == 2:
-                deposit_amnt = float(input("Enter ammnt to deposit"))
+                deposit_amnt = float(input("Enter amount to deposit"))
                 if deposit_amnt <= 0:
                     print("Invalid amount")
                 else:
                     balance+=deposit_amnt
-                    print(f"Available Balanc:{balance}")
+                    print(f"Available Balance:{balance}")
             
             elif choice == 3:
                 print("Thankyou for using PyBank ATM ")
