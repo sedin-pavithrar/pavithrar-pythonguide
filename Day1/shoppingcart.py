@@ -1,3 +1,7 @@
+#Shopping Cart Calculator: Store products as a dictionary (name → price). 
+# Let the user add items to a cart list, apply a 10% discount if total exceeds ₹1000, and
+#  print an itemised bill with final amount. 
+
 products = {
     1: ("Laptop",500000),
     2: ("Mouse",1000),

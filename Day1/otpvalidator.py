@@ -1,3 +1,6 @@
+#OTP Validator: Generate a random 6-digit OTP, then give the user 3 attempts to enter it correctly. 
+# Show remaining attempts, and lock out with a message if all 3 are used up. 
+
 import random 
 
 otp = random.randint(100000,999999)

@@ -1,3 +1,6 @@
+#Word Frequency Counter: Take a paragraph as input. 
+# Count how many times each word appears (case-insensitive, ignore punctuation). 
+# Print the top 5 most frequent words. 
 from collections import Counter
 import re
 
