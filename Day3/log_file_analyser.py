@@ -51,19 +51,20 @@ def replace_tokens(log:str)->list:
      return pattern
 
 
+
 print("IP:")
 print(extract_ip(LOG_DATA))
 
 print("Timestamps:")
 print(extract_timestamp(LOG_DATA))
 
-print("ErrorCode:")
+print("Error Code:")
 print(extract_failedcodes(LOG_DATA))
 
 print("Email:")
 print(extract_email(LOG_DATA))
 
-print("StatusCode:")
+print("HTTP Status Code:")
 print(extract_statuscode(LOG_DATA))
 
 print("REDACTED Token:")
