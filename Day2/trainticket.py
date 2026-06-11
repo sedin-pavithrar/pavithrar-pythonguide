@@ -15,7 +15,16 @@
 print("=====Train Ticket Fare Calculator=====")
 
 name = input("Enter passenger name:")
-age = int(input("Enter your age:"))
+# age = int(input("Enter your age:"))
+
+try:
+    age = int(input("Enter your age:"))
+    
+except ValueError:
+    print("Error : Enter a valid age!")
+    exit()
+
+    
 
 classes = {
     1:{"name" : "Sleeper" , "rate":1.0},
@@ -24,8 +33,13 @@ classes = {
 }
 
 print("Select which class you have to travel \n 1.Sleeper\n 2.2AC\n 3.3AC \n")
-sl_class = int(input("Enter your choice:"))
-distance = int(input("Enter distance(km):"))
+
+try:
+    sl_class = int(input("Enter your choice:"))
+    distance = int(input("Enter distance(km):"))
+except ValueError:
+    print("Enter a valid number")
+    exit()
 
 if sl_class not in classes:
     print("Invalid class selected")
