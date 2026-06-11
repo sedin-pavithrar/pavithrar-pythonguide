@@ -52,8 +52,8 @@ for currency,amount in currencies.items():
     print(f"{currency} -> {amount}")
 
 print("Enter the from currency and to currency to get converted ")
-from_currency = input("From currency: ").upper()
-to_currency = input("To currency: ").upper()
+from_currency = input("From currency: ").upper() # GBP
+to_currency = input("To currency: ").upper() # INR 
 amount = float(input("Enter amount: "))
 
 if amount <= 0 or amount > 10000000:
@@ -73,10 +73,10 @@ else:
         print("Note: Source and destination currencies are the same.")
 
     else:
-        amount_in_usd = amount / currencies[from_currency]
-        converted_amount = amount_in_usd * currencies[to_currency]
+        amount_in_usd = amount / currencies[from_currency] # 800 / GBP (0.75)
+        converted_amount = amount_in_usd * currencies[to_currency] #1066.66 * 84.5
 
-        exchange_rate = ( currencies[to_currency] / currencies[from_currency])
+        exchange_rate = ( currencies[to_currency] / currencies[from_currency]) 
 
         print("\n----- Conversion Result -----")
         print(f"{amount:.2f} {from_currency} = {converted_amount:.2f} {to_currency}"

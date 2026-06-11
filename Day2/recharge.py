@@ -41,7 +41,16 @@ else:
     for plan in selected_plan:
         print(f"₹{plan['price']} = {plan['desc']}")
 
-    budget = int(input("\n Enter your budget ₹"))
+    # budget = int(input("\n Enter your budget ₹"))
+
+    try:
+        budget =  int(input("Enter your budget: ₹ "))
+        print("You entered:",budget)
+    
+    except ValueError:
+        print("Invalid input! Please enter a number.")
+        exit()
+
     if budget < 199:
         print(f"No plans available for ₹{budget} \n Minimum budget needed:₹199")
     else:
