@@ -8,6 +8,18 @@
 # You save ₹61 vs the ₹299 plan. 
 # Extra data vs ₹199 plan: +0.5GB/day 
 
+
+
+
+# Take user preference → calls / data / both
+# Show available plans
+# Take budget
+# Filter plans within budget
+# Pick best plan
+# Compare with:
+# next expensive plan (savings)
+# previous cheaper plan (extra data)
+
 print(" ====== Mobile Recharge Plan Selector ====== ")
 
 print()
@@ -54,7 +66,11 @@ else:
     if budget < 199:
         print(f"No plans available for ₹{budget} \n Minimum budget needed:₹199")
     else:
-        #Getting all best plan 
+        #Getting all best plans within budget with preference 
+
+        #for each plan in selected_plan
+            # if plan price <= budget
+                 #add to new list 
         affordable = [plan for plan in selected_plan if plan["price"] <= budget]
 
         if not affordable:
@@ -62,13 +78,14 @@ else:
 
         else:
             #Highest price within budget
-            best = affordable [-1]
+            best = affordable [-1] # taking the last affordable plan 
     
             print("\n ---- Recommendation ---- ")
             print(f"Best Plan: ₹{best['price']} - {best['data']}GB/day, {best['validity']} days")
 
 
             #savings
+            #getting plans higher than selected one 
             higher = [plan for plan in selected_plan if plan["price"] > best["price"]]
             
             if higher:
@@ -77,7 +94,7 @@ else:
             else:
                 print ("You save ₹0")
 
-             # previous plan
+             # previous plan  
             lower = [plan for plan in selected_plan if plan["price"] < best["price"]]
             if lower:
                 prev_plan = lower[-1]
