@@ -19,9 +19,13 @@ CATEGORIES = {
 
 def organise_folder(folder_path: str) -> dict:
 
-    if not os.path.exists(folder_path):
+    # if not os.path.exists(folder_path):
+    #     print("Folder does not exist")
+    #     return {} #checks if folder exists if not program stops returns empty dict
+    
+    if not Path(folder_path).exists():
         print("Folder does not exist")
-        return {} #checks if folder exists if not program stops returns empty dict
+        return {}
 
     summary = {
         "Images": 0,
