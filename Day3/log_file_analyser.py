@@ -19,28 +19,36 @@ LOG_DATA = """
 Error: admin@company.com password=secret123 token=abc99xyz 
 
 """ 
+IP_ADDR_PATTERN = r"\d+\.\d+\.\d+\.\d+"
+TIMESTAMP = r"\[(.*?)\]"
+FAILED_CODES = r'"([A-Z]+ [^"]+)"\s([45]\d{2})'
+STATUS_CODES = r'"([A-Z]+[^"]+"\s([123]\d{2}))'
+EMAIL = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
+PASSWORD = r"password=[^ ]+","password=[REDACTED]"
+TOKENS = r"token=\S+","token=[REDACTED]"
+
 #returns a list
 def extract_ip(log:str) -> list: # log -> str 
-    pattern =  r"\d+\.\d+\.\d+\.\d+"
-    return re.findall(pattern,log)
+    # pattern =  r"\d+\.\d+\.\d+\.\d+"
+    return re.findall(IP_ADDR_PATTERN,log)
 
 def extract_timestamp(log:str) -> list:
-    pattern = r"\[(.*?)\]" #(.*?) capture everything inside []
-    return re.findall(pattern,log)
+    # pattern = r"\[(.*?)\]" #(.*?) capture everything inside []
+    return re.findall(TIMESTAMP,log)
 
 def extract_failedcodes(log:str)-> list:
-        pattern = r'"([A-Z]+ [^"]+)"\s([45]\d{2})' # GET POST DELETE+URL PATH+STARTS WITH 4 OR 5 + 2DIGITS 
-        return re.findall(pattern,log)
+        # pattern = r'"([A-Z]+ [^"]+)"\s([45]\d{2})' # GET POST DELETE+URL PATH+STARTS WITH 4 OR 5 + 2DIGITS 
+        return re.findall(FAILED_CODES,log)
 
 def extract_statuscode(log:str)->list:
-     pattern = r'"([A-Z]+[^"]+"\s([123]\d{2}))'
-     return re.findall(pattern,log)
+    #  pattern = r'"([A-Z]+[^"]+"\s([123]\d{2}))'
+     return re.findall(STATUS_CODES,log)
 
 def extract_email(log:str)-> list:
-    pattern = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
+    # pattern = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
     #\b word boundary []->character Set + one or more times \.->to match real dot
     # [one or more letters,digits,._%+-]@[letters,digits,.-].[domain(atleast 2 letter)]
-    return re.findall(pattern,log) 
+    return re.findall(EMAIL,log) 
 
 def replace_password(log:str)->list:
      pattern = re.sub(r"password=[^ ]+","password=[REDACTED]",log) # re.sub(pattern,replacement,text)
@@ -48,6 +56,7 @@ def replace_password(log:str)->list:
 
 def replace_tokens(log:str)->list:
      pattern = re.sub(r"token=\S+","token=[REDACTED]",log)
+    # pattern = re.sub(TOKENS,log)
      return pattern
 
 
