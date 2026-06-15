@@ -1,3 +1,14 @@
+# Min-heap via heapq where tuple order is (severity, arrival_counter, name, age). 
+# Lower severity = higher priority. 
+# Same-severity patients served in arrival order via the counter tie-breaker.
+# This  models real ICU triage systems and is the same algorithm behind printer job schedulers and OS task managers.
+# Problem
+# Patients treated by severity (1=critical) not arrival order. Always treat most critical first using heapq
+#Constraints
+#  Same severity -> first admitted (FIFO via counter)
+#  Heap tuple: (severity, arrival_order, name, age)
+# Bonus: Add bump_priority(name) that worsens a severity by 1.
+
 import heapq
 
 class Hospital_Emergency:

@@ -1,3 +1,24 @@
+# HashMap (Python dict) caching computed fares keyed by route string. First lookup = MISS (compute+ store).
+#  Subsequent = HIT (instant O(1) return).
+#  Tracks search frequency per route. This is the 
+# exact caching pattern used by Ola and Uber to avoid recomputing surge prices.
+# Problem
+# Fare caching by route. MISS calculates and saves. HIT returns instantly. 
+# Track frequency, show top 3 routes.
+# Example
+# Input / Code Output
+# fc = FareCache()
+# fc.search("Pune->Mumbai")
+# fc.search("Pune->Mumbai")
+# MISS -- Rs.1,776 [saved]
+# HIT -- Rs.1,776 (instant)
+# Constraints
+# Route not found -> "Route not found"
+# top_routes sorted by frequency desc
+# clear_cache() preserves frequency data
+
+
+
 RATE_PER_KM = 12
 
 distances = {
@@ -30,7 +51,7 @@ def search(source,destination):
      cache[route] = fare
      return f"MISS -- Rs.{fare:.2f} saved"
 
-def top_routes(n):
+def top_routes(n=3):
           if cache:
                sorted_route = sorted(frequency.items(),key= lambda item:item[1] , reverse = True)
                return sorted_route[:n]
@@ -55,11 +76,8 @@ def main():
  
      
      print("Top Routes are ",top_routes(2))
-    #  isclearcache = int(input("You really want to clear catch? \n Enter 1 if you want to or else enter 0: "))
-    #  if isclearcache:
      print(clear_cache())
-    #  else:
-    #       print("Cache not cleared")
+
     
 
 

@@ -1,5 +1,17 @@
-from collections import deque
+# Two stacks simulate browser back/forward navigation. 
+# visit(url) pushes to back_stack and clears 
+# fwd_stack. back() pops from back to forward. 
+# forward() pops from forward to back. A deque 
+# maintains a permanent chronological log. This is the exact data structure Chrome uses for browser history.
+# Problem
+# Two stacks + deque history log. visit() pushes to back. back() pops to forward. forward() reverses.
+# Constraints
+# • visit() clears forward stack
+# • back() -> "Nothing to go back to" if empty
+# • history_log is append-only, never cleared
+# Bonus: Add search_history(keyword) returning all matching URLs.from collections import deque
 
+from collections import deque
 class Browser:
     def __init__(self):
         self.back_stack = []

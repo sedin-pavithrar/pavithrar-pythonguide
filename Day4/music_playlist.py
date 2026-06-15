@@ -1,3 +1,16 @@
+# Doubly Linked List where each node holds song name, artist, and duration. Supports add_song 
+# (append), remove_current (unlink with pointer update), next_track, prev_track with boundary 
+# messages, and show_queue that marks the current node. This is exactly the internal structure 
+# Spotify uses for its queue.
+# Problem
+# Doubly Linked List playlist: add song, remove current, next/prev track, display queue with  [playing] marker.
+# Constraints
+# next_track() on last -> "End of playlist"
+# prev_track() on first -> "Already at beginning"
+# Duration displays in mm:ss
+# Bonus: Add shuffle() that randomises playlist order.
+
+
 class SongNode:
 
     def __init__(self, name, artist, duration):
