@@ -9,7 +9,7 @@
 # prev_track() on first -> "Already at beginning"
 # Duration displays in mm:ss
 # Bonus: Add shuffle() that randomises playlist order.
-
+import random
 
 class SongNode:
 
@@ -123,10 +123,45 @@ class Playlist:
         temp = self.head
 
         while temp:
+            minutes = temp.duration // 60
+            seconds = temp.duration % 60
 
             marker = " [playing]" if temp == self.current else ""
-            print( f" {temp.name} - {temp.artist} ({temp.duration}s){marker} ")
+            print( f" {temp.name} - {temp.artist} ({minutes}:{seconds}){marker} ")
             temp = temp.next
+
+    def shuffle(self):
+        if  self.playlist_empty():
+            return
+        
+        if self.head == self.tail:
+            print("Only one song in playlist")
+            return 
+        
+        songs = []
+        temp = self.head
+
+        while temp:
+            songs.append(temp)
+            temp = temp.next
+
+        random.shuffle(songs)
+
+        self.head = songs[0]
+        self.tail = songs[-1]
+
+        for i in range(len(songs)):
+
+            songs[i].prev = songs[i - 1] if i > 0 else None
+            songs[i].next = songs[i + 1] if i < len(songs) - 1 else None
+        
+        self.current = self.head
+
+        self.show_current()
+
+
+
+
 
 
 def main():
@@ -146,13 +181,16 @@ def main():
     playlist.show_queue()
 
     print("\n --- Remove Current ---")
-    playlist.remove_current()
+    # playlist.remove_current()
 
     print("\n --- Queue ---")
     playlist.show_queue()
 
     print("\n --- Previous Track ---")
     playlist.prev_track()
+
+    print("\n ---Shuffle--- ")
+    playlist.shuffle()
  
     playlist.show_queue()
 
