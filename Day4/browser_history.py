@@ -36,7 +36,7 @@ class Browser:
         
         self.frwd_stack.append(self.current)
         self.current = self.back_stack.pop()
-        self.display()
+        self.display("Backward")
 
     def forward(self):
         if not self.frwd_stack:
@@ -44,7 +44,7 @@ class Browser:
             return 
         self.back_stack.append(self.current)
         self.current = self.frwd_stack.pop()
-        self.display()
+        self.display("Forward")
 
     def show_history(self):
         print("\n History logs:")
@@ -62,8 +62,8 @@ class Browser:
                 matches.append(url)
         return matches
     
-    def display(self):
-        print(f" \n Current Page : {self.current}")
+    def display(self,action = "Current Page"):
+        print(f" \n {action} -> {self.current}")
 
     
 def main():
