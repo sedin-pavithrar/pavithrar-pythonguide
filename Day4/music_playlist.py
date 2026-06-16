@@ -16,10 +16,10 @@ class SongNode:
     def __init__(self, name, artist, duration):
         self.name = name
         self.artist = artist
-        self.duration = duration
+        self.duration = duration # song information
 
         self.prev = None
-        self.next = None 
+        self.next = None  # pointer to prev and next songs
 
 
 class Playlist:
@@ -31,15 +31,15 @@ class Playlist:
 
     def add_song(self, name, artist, duration):
 
-        new_song = SongNode(name, artist, duration)
+        new_song = SongNode(name, artist, duration) # new node
 
-        # Empty playlist
+        # if head is empty add new song to head and tail and current 
         if self.head is None:
             self.head = new_song
             self.tail = new_song
             self.current = new_song
             return
-
+        #if head is not empty 
         self.tail.next = new_song
         new_song.prev = self.tail
         self.tail = new_song
@@ -114,7 +114,6 @@ class Playlist:
         print(f" Now playing: {self.current.name}")
     
        
-
     def show_queue(self):
 
         if self.playlist_empty():

@@ -17,76 +17,76 @@
 # top_routes sorted by frequency desc
 # clear_cache() preserves frequency data
 
+class Fare_Price:
+    RATE_PER_KM = 12
 
+    distances = {
+        "pune<->mumbai": 148,
+        "mumbai<->goa": 590,
+        "delhi<->agra": 233,
+        "bangalore<->mysore": 145
+    }
 
-RATE_PER_KM = 12
+    def __init__(self):
+        self.cache = {}
+        self.frequency = {}
 
-distances = {
-    "pune<->mumbai": 148,
-    "mumbai<->goa": 590,
-    "delhi<->agra": 233,
-    "bangalore<->mysore": 145
-}
+    def search(self, source, destination):
 
-cache = {}
-frequency = {}
+        route = f"{source.strip().lower()}<->{destination.strip().lower()}"
 
-def search(source,destination):
-     route = f"{source.strip().lower()}<->{destination.strip().lower()}"
+        if route not in self.distances:
+            reverse_route = f"{destination.strip().lower()}<->{source.strip().lower()}"
 
-     if route not in distances:
-          reverse_route = (f"{destination.strip().lower()}<->"f"{source.strip().lower()}")
-          if reverse_route in distances:
-               route = reverse_route
-          else:
-               return "Route not found"
-    
-     frequency[route] = frequency.get(route,0)+1
-    
-     if route in cache:
-          fare = cache[route]
-          return f"HIT -- Rs.{fare:.2f}"
-     
-     fare = distances[route]* RATE_PER_KM
-     cache[route] = fare
-     return f"MISS -- Rs.{fare:.2f} saved"
+            if reverse_route in self.distances:
+                route = reverse_route
+            else:
+                return "Route not found"
 
-def top_routes(n=3):
-          if cache:
-               sorted_route = sorted(frequency.items(),key= lambda item:item[1] , reverse = True)
-               return sorted_route[:n]
-          else:
-               return " Empty"
+        self.frequency[route] = self.frequency.get(route, 0) + 1
 
-def clear_cache():
-        if cache:
-          cache.clear()
-          return "Cache Cleared" 
-        else:
-             return "Route Empty"
+        if route in self.cache:
+            fare = self.cache[route]
+            return f"HIT -- Rs.{fare:.2f}"
+
+        fare = self.distances[route] * self.RATE_PER_KM
+        self.cache[route] = fare
+        return f"MISS -- Rs.{fare:.2f} saved"
+
+    def top_routes(self, n=3):
+
+        if not self.frequency:
+            return "Empty"
+
+        sorted_routes = sorted(
+            self.frequency.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        return sorted_routes[:n]
+
+    def clear_cache(self):
+        self.cache.clear()
+        return "Cache Cleared"
+
 
 def main():
-     while True:
-          source = input("\nEnter source city (or 'exit'): ")
-          if source.lower() == "exit":
-              break
-          
-          destination = input("Enter destination city: ")
-          print(search(source, destination))
- 
-     
-     print("Top Routes are ",top_routes(2))
-     print(clear_cache())
+    fc = Fare_Price()
 
-    
+    while True:
+        source = input("\nEnter source city (or 'exit'): ")
+        if source.lower() == "exit":
+            break
+
+        destination = input("Enter destination city: ")
+        print(fc.search(source, destination))
+
+    print("\nTop Routes:", fc.top_routes(3))
+    print(fc.clear_cache())
 
 
 if __name__ == "__main__":
-     main()
-     
-
-
-
+    main()
      
      
      

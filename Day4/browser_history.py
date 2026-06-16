@@ -26,7 +26,6 @@ class Browser:
 
         self.current = url
         self.history.append(self.current)
-        self.frwd_stack.clear()
         print(f" \n Visited url: {url}")
 
     def back(self):
@@ -110,6 +109,35 @@ if __name__ == "__main__":
 
 
 
-    
+#  google
+#     ↓
+# youtube  ← current
+#     ↓
+# github
+
+# back_stack = [google]
+# current = youtube
+# frwd_stack = [github]
+
+# browser.visit("linkedin.com")
+
+
+# google
+#     ↓
+# youtube
+#     ↓
+# linkedin   ← current
+
+# github is no more 
+
+
+# google
+#    |
+# youtube
+#   / \
+# github linkedin
+
+
+
 
 

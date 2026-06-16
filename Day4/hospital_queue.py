@@ -38,8 +38,9 @@ class Hospital_Emergency:
             return
         print("\n Waiting Patients:")
 
-        for severity,order,name,age in sorted(self.heap):
+        for severity,name,age in sorted(self.heap):
             print(f"Name:{name} | Age:{age} | Severity:{severity}")
+
 def main():
 
     ward = Hospital_Emergency()
@@ -55,8 +56,6 @@ def main():
     ward.treat_next()
     ward.treat_next()
 
-    # print("\n--- Condition Worsened ---")
-    # ward.bump_priority("Priya")
     ward.show_waiting()
     
 if __name__ == "__main__":

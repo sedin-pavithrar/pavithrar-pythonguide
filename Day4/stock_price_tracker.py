@@ -33,6 +33,8 @@ class StockPriceTracker:
         print(f" Best Buy : Day {buy_day+1} @ Rs.{self.prices[buy_day]} ")
         print(f" Best Sell: Day {sell_day+1} @ Rs.{self.prices[sell_day]} ")
         print(f" Max Profit: Rs.{max_profit}/share")
+
+
 # finding average price for about some days 
     def moving_average(self, window):
 
@@ -42,13 +44,14 @@ class StockPriceTracker:
 
             print(f"Window {i+1} (Day {i+1}-{i+window}): {avg:.2f}")
 
+
+
     def most_fluctuated_week(self):
         max_swing = -1
         start_day = 0
         for i in range(len(self.prices) - 6):
 
             week = self.prices[i:i+7]
-
             high = max(week)
             low = min(week)
 
@@ -61,9 +64,7 @@ class StockPriceTracker:
                 best_low = low
 
         print(
-            f" Week: Days {start_day+1}-{start_day+7} | "
-            f" High: {best_high} | Low: {best_low} | "
-            f" Swing: {max_swing} "
+            f" Week: Days {start_day+1}-{start_day+7} |  High: {best_high} | Low: {best_low} |  Swing: {max_swing} "
         )
 
 def main():
@@ -75,15 +76,15 @@ def main():
         440,450
     ]
 
-    tracker = StockPriceTracker(prices) 
+    tracker = StockPriceTracker(prices) #object creation 
 
     print(" === Maximum Profit === ")
     tracker.find_max_profit()
 
-    print("\n === Moving Averages ===")
+    print("\n === Moving Averages === ")
     tracker.moving_average(7)
 
-    print("\n === Most Volatile Week ===")
+    print("\n === Most Volatile Week === ")
     tracker.most_fluctuated_week()
 
 
