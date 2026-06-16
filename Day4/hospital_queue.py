@@ -15,31 +15,36 @@ class Hospital_Emergency:
 
     def __init__ (self):
         self.counter = 0
-        self.heap = []
+        self.patients = []
 
     def admit(self, name, age, severity):
-        heapq.heappush(self.heap,(severity,self.counter,name,age))
+        heapq.heappush(self.patients,(severity,self.counter,name,age))
         self.counter+=1
 
         print(f"Admitted: {name} | Age: {age} |  Severity: {severity}")
 
     def treat_next(self):
-        if not self.heap:
-            print("No patients waiting")
+        if self.heap_empty():
             return 
         
-        severity,_,name,age = heapq.heappop(self.heap)
+        severity,_,name,age = heapq.heappop(self.patients)
 
         print(f"Treating :{name} | Age: {age} | Severity:{severity}")
         
     def show_waiting(self):
-        if not self.heap:
-            print("No patients waiting")
+        if self.heap_empty():
             return
+       
         print("\n Waiting Patients:")
 
-        for severity,name,age in sorted(self.heap):
+        for severity,_,name,age in sorted(self.patients):
             print(f"Name:{name} | Age:{age} | Severity:{severity}")
+
+    def heap_empty(self):
+        if not self.patients:
+            print("No patients waiting")
+            return 
+
 
 def main():
 
