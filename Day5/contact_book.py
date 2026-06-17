@@ -9,21 +9,14 @@
 # BSTs power database indexes and autocompletion systems.
 # Problem
 # BST contact book keyed alphabetically by name. Support insert, search, delete, and list all A-Z (inorder traversal).
-# Starter Code
-# class ContactNode:
-#  def __init__(self, name, phone, email):
-#  self.name=name; self.phone=phone; self.email=email
-#  self.left=None; self.right=None
-# class ContactBook:
-#  def insert(self, name, phone, email): ...
-#  def search(self, name): ...
-#  def delete(self, name): ...
-#  def list_all(self) -> list: ... # inorder
 # Constraints
 # • Insert uses name as key (alphabetical)
 # • list_all must use inorder traversal
 # • delete handles all 3 cases: leaf, 1 child, 2 children
 # Bonus: Add height() and balance() methods.
+
+import random
+import timeit
 
 
 class ContactNode:
@@ -63,7 +56,7 @@ class ContactBook:
                 current = current.right
 
             else:
-                # Update existing contact
+                # Updating existing contact
                 current.phone = phone
                 current.email = email
                 return
@@ -81,9 +74,9 @@ class ContactBook:
             else:
                 current = current.right
 
-        return None
+        return None 
 
-    # LIST ALL (ITERATIVE INORDER TRAVERSAL)
+    # LIST ALL
     def list_all(self):
         result = []
         stack = []
@@ -104,6 +97,29 @@ class ContactBook:
             current = current.right
 
         return result
+    
+
+# def preorder(self):
+#     if self.root is None:
+#         return []
+
+#     result = []
+#     stack = [self.root]
+
+#     while stack:
+#         current = stack.pop()
+
+#         result.append(
+#             (current.name, current.phone, current.email)
+#         )
+
+#         if current.right:
+#             stack.append(current.right)
+
+#         if current.left:
+#             stack.append(current.left)
+
+#     return result
 
     # DELETE
     def delete(self, name):
@@ -117,7 +133,7 @@ class ContactBook:
             if name < current.name:
                 current = current.left
             else:
-                current = current.right
+                current = current.right 
 
         if current is None:
             return False
@@ -125,7 +141,12 @@ class ContactBook:
         # CASE 1 & 2: Node has 0 or 1 child
         if current.left is None or current.right is None:
 
-            child = current.left if current.left else current.right
+            # child = current.left if current.left else current.right
+
+            if current.left:
+                child = current.left
+            else:
+                child = current.right
 
             if parent is None:
                 self.root = child
@@ -146,18 +167,79 @@ class ContactBook:
                 successor = successor.left
 
             current.name = successor.name
-            current.phone = successor.phone
+            current.phone = successor.phone                
             current.email = successor.email
 
             child = successor.right
 
-            if successor_parent.left == successor:
-                successor_parent.left = child
-            else:
-                successor_parent.right = child
-
+            if successor_parent.left == successor:    
+                successor_parent.left = child          
+            else:                                                 # Go to the node's right child
+                successor_parent.right = child                    # Keep moving left
+                                                                  # Stop when there is no more left child
         return True
     
+
+def benchmark():
+
+    names = [f"User{i}" for i in range(1000)] # generates test data 
+    random.shuffle(names) # shuffling the names inorder ot balance the tree 
+
+    def build_contact_book():
+        book = ContactBook() # creating an empty tree 
+
+        for name in names:
+            book.insert(
+                name,
+                "9999999999",
+                f"{name}@mail.com"
+            ) # inserts all contacts 
+
+        return book 
+
+    contacts = build_contact_book() #contact book object contains BST 
+    context = globals() | locals()
+
+    search_time = timeit.timeit(
+        stmt='contacts.search("User500")',
+        globals=context,
+        number=10000
+    )
+
+    list_time = timeit.timeit(
+        stmt='contacts.list_all()',
+        globals=context,
+        number=1000
+    )
+
+    insert_time = timeit.timeit(
+        stmt='''
+book = ContactBook() 
+for name in names:
+    book.insert(name, "9999999999", f"{name}@mail.com")
+''', # creates a new tree 
+        globals=context,
+        number=100
+    )
+
+    delete_time = timeit.timeit(
+        stmt='''
+book = build_contact_book()
+book.delete("User500")
+''',
+        globals=context,
+        number=1000
+    )
+
+    print("\nBenchmark Results")
+    print("-" * 30)
+    print(f"Insert : {insert_time:.6f} sec")
+    print(f"Search : {search_time:.6f} sec")
+    print(f"Delete : {delete_time:.6f} sec")
+    print(f"List   : {list_time:.6f} sec")
+    print()
+    print("Global keys:\n" ,globals().keys())
+    print("Local keys:\n",locals().keys())
 
 def main():
     contacts = ContactBook()
@@ -195,6 +277,10 @@ def main():
     print("Deleting 'David' (two children)")
     contacts.delete("David")
 
+    print("Deleting Sam")
+    contacts.delete("Sam")
+
+
     print("\nContacts after deletion:")
     for name, phone, email in contacts.list_all():
         print(f"{name}: {phone}, {email}")
@@ -202,3 +288,56 @@ def main():
 
 if __name__ == "__main__":
     main()
+    benchmark()
+    
+
+
+
+
+# list
+
+# | Action     | Stack                | Result                                 |
+# | ---------- | -------------------- | -------------------------------------- |
+# | Push John  | `[John]`             | `[]`                                   |
+# | Push Alice | `[John, Alice]`      | `[]`                                   |
+# | Pop Alice  | `[John]`             | `[Alice]`                              |
+# | Push David | `[John, David]`      | `[Alice]`                              |
+# | Push Bob   | `[John, David, Bob]` | `[Alice]`                              |
+# | Pop Bob    | `[John, David]`      | `[Alice, Bob]`                         |
+# | Pop David  | `[John]`             | `[Alice, Bob, David]`                  |
+# | Push Emma  | `[John, Emma]`       | `[Alice, Bob, David]`                  |
+# | Pop Emma   | `[John]`             | `[Alice, Bob, David, Emma]`            |
+# | Pop John   | `[]`                 | `[Alice, Bob, David, Emma, John]`      |
+# | Push Sam   | `[Sam]`              | `[Alice, Bob, David, Emma, John]`      |
+# | Pop Sam    | `[]`                 | `[Alice, Bob, David, Emma, John, Sam]` |
+
+
+# benchmark()
+
+# ├── globals()
+# │   ├── ContactBook
+# │   ├── ContactNode
+# │   ├── random
+# │   └── timeit
+# │
+# ├── locals()
+# │   ├── names
+# │   ├── contacts
+# │   └── build_contact_book
+# │
+# └── context = globals() | locals()
+
+# globals() and locals() do not improve speed or accuracy.
+# They simply provide the variables that timeit() needs to run the code being measured.
+
+
+
+
+# The smallest node in the right subtree (inorder successor)
+
+# The largest node in the left subtree (inorder predecessor
+
+
+
+
+
