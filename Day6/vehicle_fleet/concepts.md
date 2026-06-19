@@ -732,3 +732,26 @@ def fare(self, distance: float) -> float:
 Every child class must implement this method.
 
 Python prevents creating a child class that forgets to define fare().
+
+
+Vehicle
+│
+├── Encapsulation
+│   ├── _base_fare
+│   ├── _driver_name
+│   └── @property
+│
+├── Inheritance
+│   ├── Car
+│   ├── Bike
+│   └── Auto
+│
+└── Polymorphism
+    └── fare()
+
+
+| Concept       | Focus                              | Example                   |
+| ------------- | ---------------------------------- | ------------------------- |
+| Encapsulation | Hiding data                        | `_base_fare`, `@property` |
+| Inheritance   | Reusing code                       | `class Car(Vehicle)`      |
+| Polymorphism  | Same interface, different behavior | `vehicle.fare(10)`        |

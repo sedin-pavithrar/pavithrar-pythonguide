@@ -2,8 +2,8 @@ from models.vehicle import Vehicle
 
 class Car(Vehicle): 
     def __init__(self,
-                 vehicle_id:str,
-                 driver_name:str
+            vehicle_id:str,
+            driver_name:str
                  ):
         # Vehicle.__init__()
         super().__init__(

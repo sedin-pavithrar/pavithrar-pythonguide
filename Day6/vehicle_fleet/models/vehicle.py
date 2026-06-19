@@ -29,7 +29,7 @@ class Vehicle(ABC):
         return self._per_km_rate
     
     @abstractmethod 
-    def fare(self,distance:float) -> float:
+    def fare(self,distance:float) -> float: #polymorphism 
         pass
     
 

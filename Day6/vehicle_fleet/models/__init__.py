@@ -9,4 +9,7 @@ __all__ = ["Car", "Bike", "Auto", "SurgePricedCar"]
 # Allows:
 # from models import Car
 # instead of:
-# from models.car import Car
+# from models.car import Car 
+
+# These are the public objects exported by this package.
+

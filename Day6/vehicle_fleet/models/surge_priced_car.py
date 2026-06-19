@@ -1,11 +1,4 @@
-from models.car import Car
-
-# Vehicle
-#    ↑
-#  Car
-#    ↑
-# SurgePricedCar
-
+from car import Car
 
 class SurgePricedCar(Car):
     def __init__(
@@ -14,17 +7,10 @@ class SurgePricedCar(Car):
             driver_name:str,
             surge_multiplier:float = 1.5
     ):
-        super().__init__(vehicle_id,driver_name)           
-        
-#Call Car's constructor.
-# Car's constructor already calls Vehicle's constructor.
-# SurgePricedCar
-#     ↓
-# Car
-#     ↓
-# Vehicle
+        super().__init__(vehicle_id,driver_name)            #Call Car's constructor.# Car's constructor already calls Vehicle's constructor.
 
-        self.__surge_multiplier = surge_multiplier
+        self.__surge_multiplier = surge_multiplier  # SurgePricedCar -> Car -> Vehicle
+
 
 
     @property #read only 
