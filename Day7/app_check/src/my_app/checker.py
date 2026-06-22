@@ -1,6 +1,7 @@
 import importlib
 
 #activate env .\myenv\Scripts\Activate.ps1
+#D:\python\Day7\app_check> .\myenv\Scripts\Activate.ps1      
 
 packages = ["requests", "pandas", "numpy", "nonexistent"]
 
@@ -15,7 +16,7 @@ for pkg in packages:
         print(f"OK   {pkg}")
         installed += 1
     except ImportError:
-        print(f"MISS {pkg}")
+        print(f"MISSING {pkg}")
         missing += 1
 
 print("\nSummary")
