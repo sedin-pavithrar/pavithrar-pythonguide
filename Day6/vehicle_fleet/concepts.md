@@ -32,7 +32,7 @@ car.vehicle_id()
 with property 
 car.vehicle_id
 
-ac tlike a senior developer and give me algm to do this and also include Day 1-2 Jun 9-10 Learn the Basics Variables, Data Types, Operators, Strings, 
+act like a senior developer and give me algm to do this and also include Day 1-2 Jun 9-10 Learn the Basics Variables, Data Types, Operators, Strings, 
 Conditionals, Loops, Lists, Dicts
 Day 3 Jun 11 Advanced Python Modules, Lambdas, Decorators, Iterators, Regular 
 Expressions, Variable Scope

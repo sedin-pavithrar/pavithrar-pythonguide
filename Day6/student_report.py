@@ -10,19 +10,6 @@
 # Problem
 # Student class with private marks. @property for read-only access. Reject invalid marks (< 0 or > 
 # 100).
-# Starter Code
-# class Student:
-#     def __init__(self, name, roll_no):
-#         self.__name=name; self.__roll_no=roll_no
-#         self.__marks={}  # private
-#     @property
-#     def name(self): return self.__name
-#     def add_marks(self, subject, marks): ...
-#     @property
-#     def percentage(self) -> float: ...
-#     @property
-#     def grade(self) -> str: ...
-# Constraints
 # •  All __ attrs private -- no direct outside access
 # •  add_marks rejects < 0 or > 100 and duplicates
 # •  percentage and grade are read-only @property
@@ -34,6 +21,7 @@ class Student:
         self.__name=name
         self.__roll_no=roll_no
         self.__marks={}  
+
     @property
     def name(self): 
         return self.__name
@@ -42,10 +30,14 @@ class Student:
         return self.__roll_no
     
     def add_marks(self, subject, marks): 
+        if not isinstance(marks,(int,float)):
+            raise TypeError("Marks must be a number")
         if marks < 0 or marks > 100:
             raise ValueError("Marks must be between 0 and 100")
+        if not subject.strip():
+            raise ValueError("Subject name cannot be empty")
         if subject in self.__marks:
-            raise ValueError("Marks for this subject already added ")
+            raise ValueError("Marks for this subject already added ") #dup sub
         
         self.__marks[subject] = marks
 
@@ -55,6 +47,7 @@ class Student:
             return 0.0
         total = sum(self.__marks.values())
         return total /len(self.__marks)
+    
     @property
     def grade(self) -> str: 
         p = self.percentage
@@ -71,8 +64,8 @@ class Student:
             return "D"
         return "F"
 
-    def __gt__(self, other):
-        return self.percentage > other.percentage
+    # def __gt__(self, other):
+    #     return self.percentage > other.percentage
 
     def __str__(self):
         return (
@@ -86,7 +79,53 @@ def main():
     s1.add_marks("Math", 95)
     s1.add_marks("Science", 88)
     s1.add_marks("English", 92)
+    s1.add_marks("Computer",100)
+    s1.add_marks("Tamil",95)
+
+    s2 = Student("Priya", 102)
+    s2.add_marks("Math", 80)
+    s2.add_marks("Science", 90)
+    s2.add_marks("English", 92)
+    s2.add_marks("Computer",100)
+    s2.add_marks("Tamil",95)
+
     print(s1)
+    print()
+    print(s2)
+    print()
+
+
+    print(s1.percentage)  
+    print(s2.percentage)  
+
+    if s1.percentage > s2.percentage:
+        print(f"{s1.name} scored higher")
+    else:
+        print(f"{s2.name} scored higher")
+
 
 if __name__ == "__main__":
     main()
+
+
+
+
+# if s1 > s2:
+#     print("Arun scored higher")
+
+# Python internally converts it to:
+
+# if s1.__gt__(s2):
+#     print("Arun scored higher")
+
+# This automatic translation is called operator overloading.
+
+# operator overloading 
+# +	__add__()
+# -	__sub__()
+# *	__mul__()
+# == __eq__()
+# >	__gt__()
+# <	__lt__()
+# >=	__ge__()
+# <=	__le__()

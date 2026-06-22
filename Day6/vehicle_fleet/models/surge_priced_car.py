@@ -1,4 +1,4 @@
-from car import Car
+from .car import Car
 
 class SurgePricedCar(Car):
     def __init__(

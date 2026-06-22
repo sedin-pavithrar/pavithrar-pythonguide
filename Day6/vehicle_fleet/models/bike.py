@@ -4,6 +4,7 @@ class Bike(Vehicle):
     def __init__(self,
             vehicle_id:str,
             driver_name:str):
+        
         super().__init__(vehicle_id,
             driver_name,
             base_fare=20,
