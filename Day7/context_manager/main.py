@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).parent
 
 file_path = BASE_DIR / "sample.txt"
 db_path = BASE_DIR / "Employee.db"
+
 print()
 print("Current Directory:", os.getcwd())
 print()
