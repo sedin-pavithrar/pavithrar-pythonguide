@@ -44,6 +44,7 @@ class BankAccount:
         self._add_transaction("CR", amount)
 
         print(f"Deposited Rs.{amount:,.2f}")
+        
 
     def withdraw(self, amount: float) -> None:
 
