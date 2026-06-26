@@ -9,6 +9,7 @@ class DbConnection:
         print("Connecting to db...")
         self.conn = sqlite3.connect(self.db_name)
         return self.conn
+    
     def __exit__(self,exc_type,exc_val,exc_tb):
         if exc_type is None:
             self.conn.commit()
