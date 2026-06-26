@@ -1,5 +1,6 @@
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Deque
 from dataclasses import dataclass
+from collections import deque
 
 
 @dataclass
@@ -8,19 +9,6 @@ class Transaction:
     amount:  float
     balance: float
     note:    Optional[str] = None 
-
-
-# class Transaction:
-#     def __init__(
-#         self,
-#         type: str,
-#         amount: float,
-#         balance: float
-#     ):
-#         self.type = type
-#         self.amount = amount
-#         self.balance = balance
-
 
 class BankAccount:
     def __init__(self, 
@@ -34,7 +22,7 @@ class BankAccount:
         self.holder: str = holder
         self.acc_num: str = acc_num
         self._balance: float = balance
-        self.transactions: List[Transaction] = []
+        self.transactions: Deque[Transaction] = deque(maxlen = 5)
 
     def _add_transaction(
             self,
@@ -49,14 +37,10 @@ class BankAccount:
             note = note )
         
         self.transactions.append(transaction)
-
-        if len(self.transactions)> 5 :
-            self.transactions.pop(0)
-        
         
     def deposit(self, amount:float) -> None:
         if not self._amount_check(amount):
-            return False
+            return
         
         self._balance += amount
         self._add_transaction("CR",amount)
@@ -128,11 +112,10 @@ class BankAccount:
         statement:List[str] = []
 
         for tx in self.transactions:
-            statement.append(
+            line = (
                 f"{tx.type}"
-                f":₹{tx.amount:.2f}" 
+                f":₹{tx.amount:.2f} " 
                 f"Balance:₹{tx.balance:.2f}"
-
             )
             if tx.note:
                 line += f" ({tx.note})"

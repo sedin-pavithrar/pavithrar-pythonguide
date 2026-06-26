@@ -59,7 +59,12 @@ class Pipelines:
             "Keyboard": 2500,
             "Monitor": 18000
         }
-        discount = {k:round(v*0.8,2) for k,v in prices.items()}
+        # discount = {k:round(v*0.8,2) for k,v in prices.items()}
+
+        discount = {
+        k: round(v - (v * 20 / 100), 2)
+        for k, v in prices.items()
+    }
         print(discount)
         
 

@@ -13,10 +13,16 @@ def download_file(filename, size_mb):
 
     time.sleep(delay)  
 
-    # without lock multiple threads try to modify completed list simultaneously
-    # lock ensures only one thread accesses the shared resource at a time 
+# without lock multiple threads try to modify completed list simultaneously
+# lock ensures only one thread accesses the shared resource at a time 
+# Thread A acquires the lock.
+# Thread A appends to completed.
+# Thread A prints.
+# Thread A releases the lock.
+# Thread B can now enter. ex counter
 
-    with lock:
+
+    with lock: # context manager
         completed.append(filename) 
         print(f"[DONE]  {filename} in {delay:.1f}s") 
 

@@ -107,7 +107,7 @@ Project name
 Version
 Supported Python versions
 Required dependencies
-
+This is the modern configuration file for Python projects. It defines metadata about the project (like name "my-app", version, and supported Python versions) and lists the required dependencies.
 
 6. Created the Project Structure
 
@@ -164,3 +164,7 @@ pip freeze > requirements.txt
 
 python src\my_app\checker.py
 
+
+freeze" because it takes an exact snapshot of your environment frozen in time.
+
+When you run pip freeze > requirements.txt, you aren't just listing the packages you explicitly installed (like requests or pandas). You are recording the exact version numbers of those packages, plus the exact version numbers of every hidden dependency they rely on (like urllib3 or certifi).

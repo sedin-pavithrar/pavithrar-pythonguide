@@ -19,7 +19,6 @@ def apply_filter(img):
         f"checksum:{result % 9999}"
     )
 
-
 def main():
 
     images = [

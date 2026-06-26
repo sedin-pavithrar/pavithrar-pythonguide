@@ -43,7 +43,6 @@ def is_valid(board, row, col, num):
 
     return True
 
-
 def solve(board):
     empty = find_empty(board)
 
@@ -60,7 +59,7 @@ def solve(board):
                 return True
 
             # Backtrack
-            board[row][col] = 0
+            board[row][col] = 0 
 
     return False
 
