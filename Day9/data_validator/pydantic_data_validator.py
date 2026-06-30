@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field, ValidationError, field_validator
 from typing import List, Optional
 from enum import Enum
-
+# Field() is used to add validation rules to attributes.
 
 class PaymentMethod(str, Enum):
     UPI = "upi"

@@ -2,19 +2,35 @@ from typing import Optional, List, Dict, Deque
 from dataclasses import dataclass
 from collections import deque
 
+# A dataclass automatically creates
+# __init__()
+# __repr__()
+
 
 @dataclass
 class Transaction:
-    type:    str
+    type:    str # CR/DR
     amount:  float
     balance: float
     note:    Optional[str] = None 
 
+#  Suppose you deposit ₹2000.
+
+# Transaction object become
+
+# Transaction(
+#     type="CR",
+#     amount=2000,
+#     balance=7000,
+#     note=None
+# )
+
+
 class BankAccount:
     def __init__(self, 
-                 holder:str,
-                   acc_num:str,
-                     balance:float=0.0) -> None:
+                holder:str,
+                acc_num:str,
+                balance:float=0.0) -> None:
 
         if balance < 0:
             raise ValueError("Opening balance cannot be negative.") 
@@ -131,19 +147,22 @@ class BankAccount:
         )
 
     def _amount_check(self, amount: float) -> bool:
+
         if amount <= 0:
             print("Amount must be greater than 0.")
             return False
         return True
 
     def _balance_check(self, amount: float) -> bool:
+
         if amount > self._balance:
             print("Insufficient balance.")
             return False
         return True
     
 def main() -> None:
-    accounts: Dict[str, BankAccount] = {}
+
+    accounts: Dict[str, BankAccount] = {} 
 
     acc1 = BankAccount("Rahul", "HDFC001", 5000.0)
     acc2 = BankAccount("Priya", "SBI001", 3000.0)
@@ -155,9 +174,9 @@ def main() -> None:
     acc1.withdraw(1000.0)
     acc1.transfer(2000.0, acc2)
 
-    print("\n", acc1)
 
     print("\n----- ACC1 MINI STATEMENT -----")
+
     for record in acc1.mini_statement():
         print(record)
 
@@ -166,6 +185,10 @@ def main() -> None:
         print(record)
 
     print(f"\nCurrent Balance: Rs.{acc1.balance:.2f}")
+
+    print("\n----- RAW TRANSACTION OBJECTS -----")
+    for tx in acc1.transactions:
+        print(tx)
 
 
 if __name__ == "__main__":
