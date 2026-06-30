@@ -12,10 +12,19 @@
 # Bonus: Add transfer(amount, target_account) between two BankAccount objects.
 
 from collections import deque
+from decimal import Decimal 
+from typing import Union
+
+Number = Union[int,float,Decimal]
 
 
 class BankAccount:
-    def __init__(self, holder: str, acc_num: str, balance: float = 0):
+    def __init__(
+            self,
+            holder: str,
+            acc_num: str, 
+            opening_balance:Number = 0):
+        balance = Decimal(str(opening_balance))
 
         if balance < 0:
           raise ValueError("Opening balance cannot be negative.")
@@ -24,9 +33,13 @@ class BankAccount:
         self.acc_num = acc_num
         self._balance = balance
         self.transactions = deque(maxlen=5) # used deque to take last 5 trans
+        
+        #Record opening balance
+        if balance > 0:
+            self._add_transaction("CR",balance)
 
 
-    def _add_transaction(self, txn_type: str, amount: float):
+    def _add_transaction(self, txn_type: str, amount:Decimal):
         transaction = {
             "type": txn_type,
             "amount": amount,
@@ -36,24 +49,27 @@ class BankAccount:
         self.transactions.append(transaction)
 
 
-    def deposit(self, amount: float) -> None:
+    def deposit(self, amount:Number) -> None:
+        amount = Decimal(str(amount))
+
         if not self._amount_check(amount):
             return
-
+        
         self._balance += amount
         self._add_transaction("CR", amount)
 
         print(f"Deposited Rs.{amount:,.2f}")
         
 
-    def withdraw(self, amount: float) -> None:
+    def withdraw(self, amount:Number) -> None:
+        amount = Decimal(str(amount))
 
         if not self._amount_check(amount):
             return 
 
         if not self._balance_check(amount):
             return
-
+        
         self._balance -= amount
         self._add_transaction("DR", amount)
 
@@ -61,14 +77,16 @@ class BankAccount:
 
     #Read only property
     @property
-    def balance(self) :
+    def balance(self) -> Decimal:
         return self._balance
 
 
-    def transfer(self, amount: float, target_account:"BankAccount" = None) -> None:
+    def transfer(self, amount:Number, target_account:"BankAccount" = None) -> None:
          #isinstance(object, class_or_tuple) 
          # object → the value or variable you want to check
          # class_or_tuple → a class/type or a tuple of classes/types
+
+         amount = Decimal(str(amount))
 
          if target_account is None:
           print("Please provide a target account.")
@@ -121,13 +139,13 @@ class BankAccount:
             f"Account Holder: {self.holder} | Account Number: {self.acc_num} | Balance: Rs.{self._balance:,.2f}")
     
     
-    def _amount_check(self,amount:float) -> bool:
+    def _amount_check(self,amount:Decimal) -> bool:
         if amount <= 0:
             print("Amount must be greater than 0.")
             return False
         return True
     
-    def _balance_check(self,amount:float) -> bool:
+    def _balance_check(self,amount:Decimal) -> bool:
          if amount > self._balance:
             print("Insufficient balance.")
             return False
@@ -149,7 +167,7 @@ def main():
     print()
     acc2.mini_statement()
 
-    print(acc1.balance)
+    print("Account 1 Balance",acc1.balance)
 
     print(type(acc2)) # checck type of instance
 
