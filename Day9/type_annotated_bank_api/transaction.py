@@ -174,9 +174,9 @@ def main() -> None:
     acc1.withdraw(1000.0)
     acc1.transfer(2000.0, acc2)
 
-    print("\n", acc1)
 
     print("\n----- ACC1 MINI STATEMENT -----")
+
     for record in acc1.mini_statement():
         print(record)
 
@@ -185,6 +185,10 @@ def main() -> None:
         print(record)
 
     print(f"\nCurrent Balance: Rs.{acc1.balance:.2f}")
+
+    print("\n----- RAW TRANSACTION OBJECTS -----")
+    for tx in acc1.transactions:
+        print(tx)
 
 
 if __name__ == "__main__":
