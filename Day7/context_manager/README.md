@@ -391,3 +391,31 @@ try:
     
 except RuntimeError as e:
     print("Caught",e)
+
+
+
+
+conn = sqlite3.connect("Employee.db")
+
+cursor = conn.cursor()
+
+cursor.execute("INSERT INTO employee(name, dept) VALUES (?, ?)",
+               ("Pavi", "RF"))
+
+raise RuntimeError("Something failed")
+
+conn.commit()
+conn.close()
+
+
+Connect DB
+    ↓
+Insert row
+    ↓
+Exception occurs
+    ↓
+Program stops
+    ↓
+commit() not executed
+    ↓
+close() not executed

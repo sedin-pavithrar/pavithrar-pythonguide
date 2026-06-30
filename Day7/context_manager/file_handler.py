@@ -21,6 +21,12 @@ class FileHandler:
     
 
 
+# exc_type → Exception class (ValueError, ZeroDivisionError, etc.)
+# exc_val → Exception object (ValueError("File Error"))
+# exc_tb → Traceback object (information about where the error occurred)
+    
+
+
 
 # f = open("sample.txt", "w")
 # f.write("Hello")
